@@ -1,0 +1,9 @@
+{
+  "name": "food-standards-recipe-nutrition-tool",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local recipe nutrition calculator using the FSANZ NPC nutrient dataset.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

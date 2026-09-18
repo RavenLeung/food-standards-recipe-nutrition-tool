@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>本地菜谱营养分析工具</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">FSANZ NPC 2026 本地数据集</p>
+      <h1>菜谱营养分析</h1>
+      <p>输入一份文字菜谱，工具会从当前目录的 Food Standards 数据集匹配配料，计算每份及每 100g 营养值，并给出待复核项和运营建议。</p>
+    </header>
+
+    <section class="card form-card">
+      <div class="form-grid">
+        <label>产品名称<input id="recipeName" value="照烧鸡肉便当"></label>
+        <label>成品份数<input id="servings" type="number" min="1" step="1" value="2"></label>
+        <label>烹饪后总重量（g）<input id="finishedWeight" type="number" min="1" step="1" value="800"></label>
+      </div>
+      <label>菜谱文本（建议每行一种配料，配料名称 + 用量；可用中文或英文）
+        <textarea id="recipe">鸡胸肉 300g
+熟白米饭 400g
+西兰花 80g
+胡萝卜 60g
+酱油 25g
+植物油 10g</textarea>
+      </label>
+      <p class="hint">示例：<code>chicken breast 300g</code>、<code>熟白米饭 400克</code>、<code>soy sauce 25 g</code>。请写明生/熟状态、品牌或低盐版本；系统不会把不确定匹配当作最终数据。</p>
+      <div class="actions"><button id="analyse" disabled>正在载入食品数据库…</button><span id="datasetStatus"></span></div>
+    </section>
+
+    <section id="results" hidden>
+      <div class="summary-grid">
+        <article class="card"><p>总成品重量</p><strong id="totalWeight">—</strong></article>
+        <article class="card"><p>每份重量</p><strong id="serveWeight">—</strong></article>
+        <article class="card"><p>已匹配配料</p><strong id="matchCount">—</strong></article>
+      </div>
+      <section class="card"><h2>配料表</h2><p class="muted">比例按填写的烹饪后总重量计算；“当前营养数据来源”会随手动选择同步更新。</p>
+        <table><thead><tr><th>配料</th><th>用量</th><th>占配方</th><th>当前营养数据来源</th></tr></thead><tbody id="ingredientTable"></tbody></table>
+      </section>
+      <section class="card"><h2>Nutrition Information（草稿）</h2><p class="muted">平均值；仅用于内部审核。发布包装前请核对供应商规格、实际成品重量及 FSANZ 要求。</p>
+        <table><thead><tr><th>营养成分</th><th>每份</th><th>每 100g</th></tr></thead><tbody id="nutritionTable"></tbody></table>
+      </section>
+      <section class="card"><h2>匹配与复核</h2><div id="matches"></div></section>
+      <section class="card"><h2>建议</h2><ul id="advice"></ul></section>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
